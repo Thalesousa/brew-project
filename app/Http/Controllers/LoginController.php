@@ -21,4 +21,10 @@ class LoginController extends Controller
 
         return redirect()->route('products.index');
     }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
 }

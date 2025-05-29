@@ -1,4 +1,6 @@
-<x-layout>
+<x-layout
+    title="Login"
+>
     <form action="{{ route('login.post') }}" method="POST" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
       @csrf
       <x-form.title text="Login" />
@@ -25,6 +27,11 @@
         />
       </div>
 
+      @error('email')
+      <div class="mb-4 pl-2">
+        <span class="text-sm text-red-400">{{ $message }}</span>
+      </div>
+      @enderror
       <x-form.button type="submit" text="Entrar" />
       <x-form.link link="{{ route('register.index') }}" text="Criar uma conta" />
     </form>

@@ -1,4 +1,6 @@
-<x-layout>
+<x-layout
+  title="Criar Conta"
+>
     <form action="{{ route('register.create') }}" method="POST" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
       @csrf
       <x-form.title text="Criar Conta" />
@@ -11,6 +13,12 @@
           required
           placeholder="Digite seu nome"
         />
+
+        @error('name')
+        <div class="my-4 pl-2">
+          <span class="text-red-400 text-sm">{{ $message }}</span>
+        </div>
+        @enderror
       </div>
 
       <div class="mb-4">
@@ -22,6 +30,11 @@
           required
           placeholder="Digite seu email"
         />
+        @error('email')
+        <div class="my-4 pl-2">
+          <span class="text-red-400 text-sm">{{ $message }}</span>
+        </div>
+        @enderror
       </div>
 
       <div class="mb-6">
@@ -33,6 +46,12 @@
           required
           placeholder="Digite sua senha"
         />
+
+        @error('password')
+        <div class="my-4 pl-2">
+          <span class="text-red-400 text-sm">{{ $message }}</span>
+        </div>
+        @enderror
       </div>
 
       <x-form.button type="submit" text="Cadastrar" />

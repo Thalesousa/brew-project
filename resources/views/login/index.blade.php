@@ -1,16 +1,31 @@
 <x-layout>
-  <form action="{{ route('login.post') }}" method="POST">
-    @csrf
-    <div>
-      <label for="email">email</label>
-      <input type="text" id="email" name="email" required>
-    </div>
+    <form action="{{ route('login.post') }}" method="POST" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
+      @csrf
+      <x-form.title text="Login" />
 
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-    </div>
+      <div class="mb-4">
+        <x-form.label for="email" text="Email" />
+        <x-form.input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="Digite seu email"
+        />
+      </div>
 
-    <button type="submit">Login</button>
-  </form>
+      <div class="mb-6">
+        <x-form.label for="password" text="Senha" />
+        <x-form.input
+          type="password"
+          id="password"
+          name="password"
+          required
+          placeholder="Digite sua senha"
+        />
+      </div>
+
+      <x-form.button type="submit" text="Entrar" />
+      <x-form.link link="{{ route('register.index') }}" text="Criar uma conta" />
+    </form>
 </x-layout>

@@ -1,21 +1,41 @@
 <x-layout>
-  <form action="{{ route('register.create') }}" method="POST">
-    @csrf
-    <div>
-      <label for="name">name</label>
-      <input type="text" id="name" name="name" required>
-    </div>
+    <form action="{{ route('register.create') }}" method="POST" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
+      @csrf
+      <x-form.title text="Criar Conta" />
 
-    <div>
-      <label for="email">email</label>
-      <input type="email" id="email" name="email" required>
-    </div>
+      <div class="mb-4">
+        <x-form.label for="name" text="Nome" />
+        <x-form.input
+          id="name"
+          name="name"
+          required
+          placeholder="Digite seu nome"
+        />
+      </div>
 
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-    </div>
+      <div class="mb-4">
+        <x-form.label for="email" text="Email" />
+        <x-form.input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="Digite seu email"
+        />
+      </div>
 
-    <button type="submit">register</button>
-  </form>
+      <div class="mb-6">
+        <x-form.label for="password" text="Senha" />
+        <x-form.input
+          type="password"
+          id="password"
+          name="password"
+          required
+          placeholder="Digite sua senha"
+        />
+      </div>
+
+      <x-form.button type="submit" text="Cadastrar" />
+      <x-form.link link="{{ route('login') }}" text="Já tenho uma conta" />
+    </form>
 </x-layout>

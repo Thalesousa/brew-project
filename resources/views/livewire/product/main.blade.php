@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    {{-- Lista de items da tabela --}}
+    {{-- Table --}}
     <div class="overflow-x-auto rounded-lg">
         <table class="min-w-full divide-y bg-white shadow-md divide-gray-200">
                 <thead class="bg-gray-100">
@@ -33,6 +33,7 @@
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Preço</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estoque</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Imagem</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Criado por</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ativo</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ações</th>
@@ -46,6 +47,19 @@
                             <td class="px-4 py-3">{{ $product->sku }}</td>
                             <td class="px-4 py-3 whitespace-nowrap">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
                             <td class="px-4 py-3 whitespace-nowrap">{{ $product->stock }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                @if($product->image === null)
+                                    <div class="bg-gray-100 w-16 h-8 flex items-center justify-center rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    </div>
+                                @else
+                                    <a href="{{ $product->image}}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ $product->image}}" alt="Prévia da Imagem" class="w-16 h-8 object-cover rounded-lg shadow">
+                                    </a>
+                                @endif
+                            </td>
                             <td class="px-4 py-3 whitespace-nowrap">{{ $product->user->name }}</td>
                             <td class="px-4 py-3">
                                 @if($product->is_active)
@@ -82,7 +96,7 @@
         </table>
     </div>
 
-    {{-- Paginação --}}
+    {{-- Pagination --}}
     <div class="min-w-full mt-4">
         {{ $this->products->links() }}
     </div>
@@ -91,8 +105,8 @@
         <x-form.alert-message :message="session('message')" wire:click="clearMessage" />
     @endsession
 
+    {{-- ModalForm --}}
     @if($modalStatus)
-        {{-- Modal para criar/editar produto --}}
         <div class="flex items-center justify-center min-h-screen bg-[#00000080] p-4 absolute inset-0">
             <form wire:submit="submit" class="w-full max-w-xl bg-white p-6 rounded-2xl shadow-md">
                 @csrf
@@ -100,13 +114,12 @@
                 <div class="w-full flex items-center justify-between gap-2 mb-6">
                     <h2 class="text-2xl font-semibold text-center">
                         {{ $this->product ? 'Editar Produto' : 'Novo Produto' }}
-                        {{-- Botão para fechar o modal --}}
-
                     </h2>
                     <svg wire:click="toggleModal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </div>
+
                 {{-- Nome --}}
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-medium mb-1">Nome</label>
@@ -169,6 +182,35 @@
                     >
                     @error('stock')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- Image--}}
+                <div class="mb-4">
+                    <label for="image" class="block text-gray-700 font-medium mb-1">URL da Imagem</label>
+                    <input
+                        wire:model.live="image"
+                        type="text"
+                        id="image"
+                        name="image"
+                        placeholder="https://exemplo.com/imagem.jpg"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                    >
+
+                    @if ($image)
+                        <div class="mb-4">
+                            <img src="{{ $image }}" alt="Prévia da Imagem" class="w-16 h-16 object-cover rounded-lg shadow">
+                        </div>
+                    @else
+                        <div class="mb-4 w-16 h-16 bg-gray-100 rounded-lg shadow flex items-center justify-center" >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                        </div>
+                    @endif
+
+                    @error('image')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 

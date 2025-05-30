@@ -31,6 +31,7 @@ class Main extends Component
         'is_active' => 'boolean',
         'price' => 'required|numeric|min:0',
         'stock' => 'required|integer|min:0',
+        'image' => 'nullable|url', // validação do link da imagem
     ];
 
     protected $messages = [
@@ -38,6 +39,7 @@ class Main extends Component
         'sku.required' => 'O SKU do produto é obrigatório.',
         'price.required' => 'O preço do produto é obrigatório.',
         'stock.required' => 'O estoque do produto é obrigatório.',
+        'image.url' => 'A imagem deve ser um link válido.',
     ];
 
     #[On('toggle-modal')]
@@ -50,7 +52,7 @@ class Main extends Component
         }
 
         if (!$this->modalStatus) {
-            $this->reset('name', 'sku', 'image', 'is_active', 'price', 'stock', 'product');
+            $this->reset('name', 'sku', 'image', 'is_active', 'price', 'stock', 'product', 'image');
         }
     }
 
@@ -63,7 +65,7 @@ class Main extends Component
             'user_id' => auth()->id(),
             'name' => $this->name,
             'sku' => $this->sku,
-//            'image' => $this->image ? $this->image->store('products', 'public') : null,
+            'image' => $this->image,
             'is_active' => $this->is_active,
             'price' => $this->price,
             'stock' => $this->stock,
@@ -112,6 +114,7 @@ class Main extends Component
             $this->stock = $this->product->stock;
             $this->price = $this->product->price;
             $this->is_active = (bool)$this->product->is_active;
+            $this->image = $this->product->image;
         }
     }
 

@@ -11,6 +11,10 @@ class RegisterController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            return redirect()->route('products.index');
+        }
+
         return view('register.index');
     }
 

@@ -1,6 +1,7 @@
 <x-layout
     title="Login"
 >
+  <div class="flex items-center justify-center py-10 md:py-24">
     <form action="{{ route('login.post') }}" method="POST" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
       @csrf
       <x-form.title text="Login" />
@@ -35,4 +36,5 @@
       <x-form.button type="submit" text="Entrar" />
       <x-form.link link="{{ route('register.index') }}" text="Criar uma conta" />
     </form>
+  </div>
 </x-layout>

@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Product;
 
+use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use App\Models\Product;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
@@ -125,7 +125,7 @@ class Table extends Component
             $query->orderBy('name', $this->order_by_asc ? 'asc' : 'desc');
         }
 
-        return $query->paginate(3);
+        return $query->paginate(6);
     }
 
     public function render()

@@ -1,6 +1,6 @@
 <x-layout title="Produtos">
   <div class="flex flex-col justify-center max-w-7xl mx-auto">
-    <div class="flex items-center justify-between w-full p-4">
+    <div class="flex items-center justify-between w-full py-4">
       <span class="inline-block">Olá, {{ auth()->user()->name }} </span>
       <a href="{{ route('logout') }}" class="inline-block ml-auto px-4 py-2 bg-blue-600 rounded-md text-white">Sair</a>
     </div>

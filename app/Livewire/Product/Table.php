@@ -9,17 +9,17 @@ use App\Models\Product;
 
 class Table extends Component
 {
-
+    public $search = '';
     public $modalStatus = false;
-
     public $name;
-
     public $sku;
     public $image;
     public $is_active = false;
     public $price;
     public $stock;
     public $product;
+    public $order_by_asc = null;
+
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -110,7 +110,18 @@ class Table extends Component
     #[Computed]
     public function products()
     {
-        return Product::all();
+        $query = Product::query();
+        if($this->search){
+            $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('sku', 'like', '%' . $this->search . '%');
+
+        }
+
+        if($this->order_by_asc !== null){
+            $query->orderBy('name', $this->order_by_asc ? 'asc' : 'desc');
+        }
+
+        return $query->get();
     }
 
     public function render()

@@ -73,6 +73,7 @@ class Main extends Component
 
         if ($product) {
             $this->toggleModal();
+            session()->flash('message', 'Produto criado com sucesso!');
         }
     }
 

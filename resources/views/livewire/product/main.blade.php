@@ -109,7 +109,7 @@
     @endsession
 
     {{-- ModalForm --}}
-    @if($modalStatus)
+    @if($modal_status)
         <div class="flex items-center justify-center min-h-screen bg-[#00000080] p-4 absolute inset-0">
             <form wire:submit="submit" class="w-full max-w-xl bg-white p-6 rounded-2xl shadow-md">
                 @csrf

@@ -14,7 +14,7 @@ class Main extends Component
     use WithPagination, WithoutUrlPagination;
 
     public $search = '';
-    public $modalStatus = false;
+    public $modal_status = false;
     public $name;
     public $sku;
     public $image;
@@ -45,13 +45,13 @@ class Main extends Component
     #[On('toggle-modal')]
     public function toggleModal($id = null)
     {
-        $this->modalStatus = !$this->modalStatus;
+        $this->modal_status = !$this->modal_status;
 
         if($id){
             $this->getProduct($id);
         }
 
-        if (!$this->modalStatus) {
+        if (!$this->modal_status) {
             $this->reset('name', 'sku', 'image', 'is_active', 'price', 'stock', 'product', 'image');
         }
     }

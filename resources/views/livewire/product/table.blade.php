@@ -86,13 +86,16 @@
             <form wire:submit="submit" class="w-full max-w-xl bg-white p-6 rounded-2xl shadow-md">
                 @csrf
 
-                <h2 class="text-2xl font-semibold text-center mb-6 flex items-center justify-between gap-2">
-                    {{ $this->product ? 'Editar Produto' : 'Novo Produto' }}
-                    {{-- Botão para fechar o modal --}}
+                <div class="w-full flex items-center justify-between gap-2 mb-6">
+                    <h2 class="text-2xl font-semibold text-center">
+                        {{ $this->product ? 'Editar Produto' : 'Novo Produto' }}
+                        {{-- Botão para fechar o modal --}}
+
+                    </h2>
                     <svg wire:click="toggleModal" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
-                </h2>
+                </div>
                 {{-- Nome --}}
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-medium mb-1">Nome</label>
@@ -101,11 +104,10 @@
                         type="text"
                         id="name"
                         name="name"
-
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                     @error('name')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -117,26 +119,12 @@
                         type="text"
                         id="sku"
                         name="sku"
-
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                     @error('sku')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-
-                {{-- Imagem --}}
-                {{--                <div class="mb-4">--}}
-                {{--                    <label for="image" class="block text-gray-700 font-medium mb-1">Imagem (opcional)</label>--}}
-                {{--                    <input--}}
-                {{--                        wire:model="image"--}}
-                {{--                        type="file"--}}
-                {{--                        id="image"--}}
-                {{--                        name="image"--}}
-                {{--                        accept="image/*"--}}
-                {{--                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"--}}
-                {{--                    >--}}
-                {{--                </div>--}}
 
                 {{-- Preço --}}
                 <div class="mb-4">
@@ -188,9 +176,9 @@
 
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+                    class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 hover:bg-transparent hover:border-blue-600 hover:text-blue-600 border border-blue-600 cursor-pointer"
                 >
-                    {{ $this->product ? 'Atualizar Produto' : 'Criar Produto' }}
+                    {{ $this->product ? 'Atualizar' : 'Criar' }}
                 </button>
             </form>
         </div>

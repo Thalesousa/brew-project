@@ -48,7 +48,12 @@ class Table extends Component
         if($id){
             $this->getProduct($id);
         }
+
+        if (!$this->modalStatus) {
+            $this->reset('name', 'sku', 'image', 'is_active', 'price', 'stock', 'product');
+        }
     }
+
 
     public function create()
     {
@@ -66,7 +71,6 @@ class Table extends Component
 
         if ($product) {
             $this->toggleModal();
-            $this->reset('name', 'sku', 'image', 'is_active', 'price', 'stock');
         }
     }
 
@@ -125,6 +129,7 @@ class Table extends Component
             $query->orderBy('name', $this->order_by_asc ? 'asc' : 'desc');
         }
 
+        $query->orderBy('created_at', 'desc');
         return $query->paginate(6);
     }
 

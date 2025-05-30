@@ -1,61 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Brew Product
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Gerencie produtos de forma simples e eficiente! Este projeto é uma aplicação web desenvolvida para o desafio prático da Brew, utilizando as melhores práticas de componentização, interatividade e responsividade com Laravel, Livewire, Blade e Tailwind CSS.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologias
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Laravel](https://img.shields.io/badge/Laravel-12.x-red?logo=laravel)
+![Php](https://img.shields.io/badge/Php-8.2-purple?logo=Php)
+![Livewire](https://img.shields.io/badge/Livewire-3.x-blue?logo=laravel)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38bdf8?logo=tailwindcss)
+![Node.js](https://img.shields.io/badge/Node.js-20.x-green?logo=node.js)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Como rodar o projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/Thalesousa/brew-project.git
+   cd brew-project
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Instale as dependências do PHP e do Node.js:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Configure o arquivo `.env`:**
+   - Copie `.env.example` para `.env` e ajuste as variáveis de ambiente, especialmente as de banco de dados.
 
-## Laravel Sponsors
+4. **Gere a chave da aplicação:**
+   ```bash
+   php artisan key:generate
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. **Execute as migrations e (opcional) seeders:**
+   ```bash
+   php artisan migrate
+   # php artisan db:seed
+   ```
 
-### Premium Partners
+6. **Compile os assets:**
+   ```bash
+   npm run dev
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+7. **Inicie o servidor:**
+   ```bash
+   php artisan serve
+   ```
 
-## Contributing
+8. **Acesse a aplicação:**
+   - Abra [http://localhost:8000](http://localhost:8000) no navegador.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Funcionalidades obrigatórias implementadas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Autenticação:**
+  Sistema de login implementado usando autenticação padrão do laravel, sem utilizar starter kits. Apenas usuários autenticados acessam as telas de produtos.
 
-## Security Vulnerabilities
+- **CRUD de Produtos:**
+  Produtos possuem os campos: Nome, SKU, Imagem (URL), Ativo, Preço, Estoque, Criado por, Criado em,  atualizado em e deletado em.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Listagem de produtos:**
+  - Busca por Nome ou SKU (Livewire).
+  - Ordenação por coluna "nome" ao clicar.
+  - Indicação de status Ativo/Inativo.
+  - Paginação padrão do Laravel.
 
-## License
+- **Criação de produtos:**
+  - Formulário simples.
+  - Mensagem de feedback de sucesso ou erro (componente Blade e Livewire).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Edição de produtos:**
+  - Feita via modal (componente Livewire).
+  - Mensagem de feedback após atualização.
+
+- **Deleção de produtos:**
+  - Confirmação antes de excluir (Livewire).
+  - Mensagem de feedback.
+  - Possui soft deletes.
+
+---
+
+## Funcionalidades opcionais/diferenciais implementadas
+
+- **Componentização:**
+  Uso extensivo de componentes Blade e Livewire para tabela, modal, mensagens e formulários.
+
+- **Responsividade:**
+  Layout responsivo com Tailwind CSS.
+
+- **Soft Deletes:**
+  Produtos são excluídos usando Soft Deletes.
+
+- **Validação:**
+  Todos os formulários possuem validação de campos.
+
+- **UX aprimorada:**
+  Modais fluidos, mensagens de feedback automáticas e claras.
+
+- **Livewire:**
+  Utilizado para busca, ordenação, modal e atualização dinâmica da tabela.
+
+---

@@ -135,6 +135,6 @@ class Main extends Component
 
     public function render()
     {
-        return view('livewire.product.table');
+        return view('livewire.product.main');
     }
 }

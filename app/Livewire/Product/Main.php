@@ -133,6 +133,11 @@ class Main extends Component
         return $query->paginate(6);
     }
 
+    public function clearMessage()
+    {
+        session()->forget('message');
+    }
+
     public function render()
     {
         return view('livewire.product.main');

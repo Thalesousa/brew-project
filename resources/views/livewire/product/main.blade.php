@@ -1,10 +1,4 @@
 <div class="min-w-full">
-    @session('message')
-        <div class="p-4 bg-green-100 text-green-800 rounded-lg mt-4">
-            {{ session('message') }}
-        </div>
-    @endsession
-
     {{-- Search --}}
     <div class="relative">
         <input
@@ -30,7 +24,12 @@
                 <thead class="bg-gray-100">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase" wire:click="$toggle('order_by_asc')">Nome</th>
+                    <th
+                        class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer border-b-blue-900 border-b-2"
+                        wire:click="$toggle('order_by_asc')"
+                    >
+                        Nome
+                    </th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Preço</th>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estoque</th>
@@ -40,37 +39,45 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 text-sm text-gray-700">
-                @forelse ($this->products as $product)
-                    <tr wire:key="{{ $product->id }}">
-                    <td class="px-4 py-3">{{ $product->id }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">{{ $product->name }}</td>
-                    <td class="px-4 py-3">{{ $product->sku }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">{{ $product->stock }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">{{ $product->user->name }}</td>
-                    <td class="px-4 py-3">
-                        @if($product->is_active)
-                        <span class="text-green-600 font-semibold">Sim</span>
-                        @else
-                        <span class="text-red-600 font-semibold">Não</span>
-                        @endif
-                    </td>
-                    <td class="px-4 py-3 flex space-x-2">
-                        <button type="button" wire:click="toggleModal('{{$product->id}}')" class="text-blue-600 hover:underline text-sm">Editar</button>
+                    @forelse ($this->products as $product)
+                        <tr wire:key="{{ $product->id }}">
+                            <td class="px-4 py-3">{{ $product->id }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">{{ $product->name }}</td>
+                            <td class="px-4 py-3">{{ $product->sku }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">R$ {{ number_format($product->price, 2, ',', '.') }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">{{ $product->stock }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap">{{ $product->user->name }}</td>
+                            <td class="px-4 py-3">
+                                @if($product->is_active)
+                                <span class="text-green-600 font-semibold">Sim</span>
+                                @else
+                                <span class="text-red-600 font-semibold">Não</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 flex space-x-2">
+                                <button
+                                    type="button"
+                                    class="text-blue-600 hover:underline text-sm"
+                                    wire:click="toggleModal('{{$product->id}}')"
+                                >
+                                    Editar
+                                </button>
 
-                        <button type="button" class="text-red-600 hover:underline text-sm"
-                        wire:click="delete('{{$product->id}}')"
-                        wire:confirm="Are you sure you want to delete this product?"
-                        >
-                            Excluir
-                        </button>
-                    </td>
-                    </tr>
-                    @empty
-                    <tr>
-                    <td colspan="8" class="px-4 py-3 text-center text-gray-500">Nenhum produto encontrado.</td>
-                    </tr>
-                @endforelse
+                                <button
+                                    type="button"
+                                    class="text-red-600 hover:underline text-sm"
+                                    wire:click="delete('{{$product->id}}')"
+                                    wire:confirm="Deseja realmente excluir o produto? Esta ação não pode ser desfeita."
+                                >
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" class="px-4 py-3 text-center text-gray-500">Nenhum produto encontrado.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
         </table>
     </div>
@@ -79,6 +86,10 @@
     <div class="min-w-full mt-4">
         {{ $this->products->links() }}
     </div>
+
+    @session('message')
+        <x-form.alert-message :message="session('message')" wire:click="clearMessage" />
+    @endsession
 
     @if($modalStatus)
         {{-- Modal para criar/editar produto --}}

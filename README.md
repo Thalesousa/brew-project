@@ -30,6 +30,9 @@ Gerencie produtos de forma simples e eficiente! Este projeto é uma aplicação 
 
 3. **Configure o arquivo `.env`:**
    - Copie `.env.example` para `.env` e ajuste as variáveis de ambiente, especialmente as de banco de dados.
+    ```bash
+    cp .env.example .env
+    ```
 
 4. **Gere a chave da aplicação:**
    ```bash

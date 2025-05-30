@@ -109,4 +109,5 @@ Gerencie produtos de forma simples e eficiente! Este projeto é uma aplicação 
 - **Livewire:**
   Utilizado para busca, ordenação, modal e atualização dinâmica da tabela.
 
----
+- **Pest:**
+  Criação de testes para validação de autenticação do usuário.

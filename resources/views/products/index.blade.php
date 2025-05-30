@@ -9,7 +9,7 @@
         <livewire:product.button-create />
     </div>
 
-    <livewire:product.table />
+    <livewire:product.main />
 
   </div>
 </x-layout>

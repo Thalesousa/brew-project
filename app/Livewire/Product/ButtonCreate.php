@@ -8,7 +8,7 @@ class ButtonCreate extends Component
 {
     public function toggleModal()
     {
-        $this->dispatch('toggle-modal')->to(Table::class);
+        $this->dispatch('toggle-modal')->to(Main::class);
     }
 
     public function render()

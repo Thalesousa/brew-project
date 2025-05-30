@@ -9,7 +9,7 @@ use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
-class Table extends Component
+class Main extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
